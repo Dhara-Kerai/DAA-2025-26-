@@ -1,0 +1,3 @@
+g++ bubbleSort.cpp -o bubbleSort
+g++ quickSort.cpp -o quickSort
+g++ mergeSort.cpp -o mergeSort

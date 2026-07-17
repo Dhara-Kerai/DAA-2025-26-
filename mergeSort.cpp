@@ -1,80 +1,69 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
-
-void merge(int numbers[], int start, int mid, int end)
-{
-    int mergedArray[100];
-
-    int left = start;
-    int right = mid + 1;
-    int index = 0;
-
-    while (left <= mid && right <= end)
-    {
-        if (numbers[left] <= numbers[right])
-        {
-            mergedArray[index] = numbers[left];
-            left++;
-        }
-        else
-        {
-            mergedArray[index] = numbers[right];
-            right++;
-        }
-        index++;
+void printArray(int A[], int n){
+    for(int i = 0; i < n; i++){
+        cout << A[i] << " ";
     }
-
-    // Copy remaining elements from the left half
-    while (left <= mid)
-    {
-        mergedArray[index] = numbers[left];
-        left++;
-        index++;
-    }
-
-    // Copy remaining elements from the right half
-    while (right <= end)
-    {
-        mergedArray[index] = numbers[right];
-        right++;
-        index++;
-    }
-
-    // Copy the merged elements back into the original array
-    for (int i = start, j = 0; i <= end; i++, j++)
-    {
-        numbers[i] = mergedArray[j];
-    }
-}
-
-void mergeSort(int numbers[], int start, int end)
-{
-    if (start < end)
-    {
-        int middle = (start + end) / 2;
-
-        mergeSort(numbers, start, middle);
-        mergeSort(numbers, middle + 1, end);
-
-        merge(numbers, start, middle, end);
-    }
-}
-
-int main()
-{
-    int numbers[] = {38, 27, 43, 3, 9, 82, 10};
-    int size = sizeof(numbers) / sizeof(numbers[0]);
-
-    mergeSort(numbers, 0, size - 1);
-
-    cout << "Array after Merge Sort: ";
-
-    for (int i = 0; i < size; i++)
-    {
-        cout << numbers[i] << " ";
-    }
-
     cout << endl;
-
-    return 0;
 }
+
+void merge(int A[], int low, int mid, int high){
+    int i, j , k , B[100];
+    i = low;
+    j = mid + 1;
+    k = low;
+
+    // merge the two subarrays into B[]
+    while(i <= mid && j <= high){
+        if(A[i] <= A[j]){
+            B[k] = A[i];
+            i++;
+            k++;
+        } else {
+            B[k] = A[j];
+            j++;
+            k++;
+        }
+    }
+    // copy the remaining elements of the left subarray, if there are any
+    while(i <= mid){
+        B[k] = A[i];
+        i++;
+        k++;
+    }
+    // copy the remaining elements of the right subarray, if there are any
+    while(j <= high){
+        B[k] = A[j];
+        j++;
+        k++;
+    }
+    // copy the merged elements back into the original array
+    for(i = low; i <= high; i++){
+        A[i] = B[i];
+    }
+
+    void mergeSort(int A[], int low, int high){
+        int mid;
+        if(low < high){
+            int mid = (low + high) / 2;
+            mergeSort(A, low, mid);
+            mergeSort(A, mid + 1, high);
+            merge(A, low, mid, high);
+        }
+    }
+    int main(){
+        int n;
+        cout << "Enter the number of elements: ";
+        cin >> n;
+
+        int A[n];
+        cout << "Enter the elements: "; 
+        for(int i = 0; i < n; i++){
+            cin >> A[i];
+        }
+        mergeSort(A, 0, n - 1);
+        cout << "Sorted array: ";
+        printArray(A, n);
+
+        return 0;
+    }

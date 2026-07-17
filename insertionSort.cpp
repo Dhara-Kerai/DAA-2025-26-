@@ -1,9 +1,10 @@
+// Insertion Sort Algorithm Implementation
 #include <iostream>
 using namespace std;
 
-void insertionSort(int numbers[], int size)
+void insertionSort(int numbers[], int n)
 {
-    for (int i = 1; i < size; i++)
+    for (int i = 1; i < n; i++)
     {
         int currentElement = numbers[i];
         int previousIndex = i - 1;
@@ -22,14 +23,24 @@ void insertionSort(int numbers[], int size)
 
 int main()
 {
-    int numbers[] = {12, 11, 13, 5, 6};
-    int size = sizeof(numbers) / sizeof(numbers[0]);
+    int n;
 
-    insertionSort(numbers, size);
+    cout << "Enter the number of elements: ";
+    cin >> n;
+
+    int numbers[n];
+
+    cout << "Enter the elements: ";
+    for (int i = 0; i < n; i++)
+    {
+        cin >> numbers[i];
+    }
+
+    insertionSort(numbers, n);
 
     cout << "Array after Insertion Sort: ";
 
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < n; i++)
     {
         cout << numbers[i] << " ";
     }

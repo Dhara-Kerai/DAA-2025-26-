@@ -1,55 +1,56 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
-int partition(int numbers[], int start, int end)
-{
-    int pivot = numbers[end];
-    int smallerIndex = start - 1;
-
-    for (int current = start; current < end; current++)
-    {
-        if (numbers[current] < pivot)
-        {
-            smallerIndex++;
-
-            int swapValue = numbers[smallerIndex];
-            numbers[smallerIndex] = numbers[current];
-            numbers[current] = swapValue;
+// Places the pivot in its correct position and returns its index.
+int partition(int A[], int low , int high){
+    int pivot = A[low];
+    int i = low + 1;
+    int j = high;
+    int temp;
+    do{
+        while(A[i] <= pivot && i <= high){ //i<=high is added to avoid going out of bounds
+            i++;
         }
-    }
-    int swapValue = numbers[smallerIndex + 1];
-    numbers[smallerIndex + 1] = numbers[end];
-    numbers[end] = swapValue;
-
-    return smallerIndex + 1;
+        while(A[j] > pivot && j >= low){//j>=low stop j before it goes below the first valid index.
+            j--;
+        }
+        if(i < j){
+            temp = A[i];
+            A[i] = A[j];
+            A[j] = temp;
+        }
+} while(i < j);
+    temp = A[low];
+    A[low] = A[j];
+    A[j] = temp;
+    return j;
 }
-
-void quickSort(int numbers[], int start, int end)
-{
-    if (start < end)
-    {
-        int pivotIndex = partition(numbers, start, end);
-
-        quickSort(numbers, start, pivotIndex - 1);
-        quickSort(numbers, pivotIndex + 1, end);
+// Calls partition() and recursively sorts the left and right subarrays.
+void quickSort(int A[], int low, int high){
+    if(low < high){
+        int partitionIndex = partition(A, low, high);
+        quickSort(A, low, partitionIndex - 1);
+        quickSort(A, partitionIndex + 1, high);
     }
 }
+int main(){
+    int n;
+    cout << "Enter the number of elements: ";
+    cin >> n;
 
-int main()
-{
-    int numbers[] = {10, 7, 8, 9, 1, 5};
-    int size = sizeof(numbers) / sizeof(numbers[0]);
-
-    quickSort(numbers, 0, size - 1);
-
-    cout << "Array after Quick Sort: ";
-
-    for (int i = 0; i < size; i++)
-    {
-        cout << numbers[i] << " ";
+    int A[n];
+    cout << "Enter the elements: "; 
+    for(int i = 0; i < n; i++){
+        cin >> A[i];
+    }
+    quickSort(A, 0, n - 1);
+    cout << "Sorted array: ";
+    for(int i = 0; i < n; i++){
+        cout << A[i] << " ";
     }
 
     cout << endl;
 
     return 0;
+
 }
