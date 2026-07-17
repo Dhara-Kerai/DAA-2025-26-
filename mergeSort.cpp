@@ -41,8 +41,9 @@ void merge(int A[], int low, int mid, int high){
     for(i = low; i <= high; i++){
         A[i] = B[i];
     }
-
-    void mergeSort(int A[], int low, int high){
+}
+    void mergeSort(int A[], int low, int high)
+    {
         int mid;
         if(low < high){
             int mid = (low + high) / 2;
