@@ -1,5 +1,6 @@
 //binary Search 
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
 int binarySearch(int arr[], int n, int target) {
@@ -7,7 +8,8 @@ int binarySearch(int arr[], int n, int target) {
     int right = n - 1;
 
     while (left <= right) {
-        int mid = left + (right - left) / 2;
+        int mid = left + (right - left) 
+        / 2;
 
         if (arr[mid] == target)
             return mid; // Target found at index mid
@@ -28,6 +30,13 @@ int main(){
 
     for (int i = 0; i < n; i++)
         cin >> arr[i];
+
+     // Sort the array
+    sort(arr, arr + n);
+
+    cout << "Sorted Array: ";
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
 
     cout << "Enter the target : ";
     cin >> target; // take target form the user 
